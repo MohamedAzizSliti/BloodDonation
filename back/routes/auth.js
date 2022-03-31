@@ -39,7 +39,7 @@ router.post("/login", async (req, res) => {
             process.env.JWT_SEC,
             { expiresIn: "3d" }
         );
-/* send clean res only information username email id... without password  */
+        /* send clean res only information username email id... without password  */
         const { password, ...others } = user._doc;
         res.status(200).json({ ...others, accessToken });
 
