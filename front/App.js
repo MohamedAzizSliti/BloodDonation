@@ -8,6 +8,7 @@ import Signup from './src/views/auth/Signup';
 import Signin from './src/views/auth/Signin';
 import { useState } from 'react';
 import HomeScreen from './src/views/HomeScreen';
+import IntroSlider from './src/views/IntroSlide';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ export default function App() {
     <Stack.Screen options={{headerShown: false}}  name="signup" component={Signup} />
     <Stack.Screen name="signin" component={Signin} options={{headerShown: false}}  />
     <Stack.Screen name="home" component={HomeScreen} options={{headerShown: false}}  />
+    <Stack.Screen name="introslide" options={{ headerShown: false }}  component={IntroSlider} />
 
   </Stack.Navigator>
   </NavigationContainer>
