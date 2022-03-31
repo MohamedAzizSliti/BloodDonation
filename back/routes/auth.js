@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User")
 const CryptoJS = require("crypto-js");
-/* Check Validator Middelware  */
-const { check, validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
 /* REGISTER */
 router.post("/register", async (req, res) => {
     const newUser = new User({
@@ -12,15 +11,12 @@ router.post("/register", async (req, res) => {
             req.body.password, process.env.PASS_SEC
         ).toString(),
     });
-  
-    
-        try {
-            const savedUser = await newUser.save();
-            res.status(200).json(savedUser);
-        } catch (err) {
-            res.status(500).json(err)
-        }
-    
+    try {
+        const savedUser = await newUser.save();
+        res.status(200).json(savedUser);
+    } catch (err) {
+        res.status(500).json(err)
+    }
 });
 /* LOGIN */
 router.post("/login", async (req, res) => {
@@ -33,11 +29,20 @@ router.post("/login", async (req, res) => {
             process.env.PASS_SEC
         );
         /*  decrypt method CryptoJS.enc.Utf8 for specify caractere  like ! $ + - ( ) @ < > ,*/
-        const password = hashPassword.toString(CryptoJS.enc.Utf8);
-        password !== req.body.password &&
-            res.status(401).json("Worng Credentials");
+        const OriginalPassword = hashPassword.toString(CryptoJS.enc.Utf8);
+        OriginalPassword !== req.body.password &&
+            res.status(401).json("Worng password");
+        const accessToken = jwt.sign({
+            id: user._id,
+            isAdmin: user.isAdmin,
+        },
+            process.env.JWT_SEC,
+            { expiresIn: "3d" }
+        );
+/* send clean res only information username email id... without password  */
+        const { password, ...others } = user._doc;
+        res.status(200).json({ ...others, accessToken });
 
-        res.status(200).json(user);
     } catch (err) {
         res.status(500).json(err)
     }
