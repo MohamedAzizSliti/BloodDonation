@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
 
   image: {
 
-    height: '22%',
-    width: '40%'
+    height: 200,
+    width: 200
 
 
   },
