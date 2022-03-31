@@ -4,13 +4,7 @@ const CryptoJS = require("crypto-js");
 /* Check Validator Middelware  */
 const { check, validationResult } = require("express-validator");
 /* REGISTER */
-router.post("/register", [
-    check("usename").notEmpty().withMessage("Username is required"),
-    check("email").notEmpty().withMessage("Email is required"),
-    check("email").isEmail().withMessage("Email is not valid"),
-    check("password").notEmpty().withMessage("Password is required"),
-    /*     check("password").matches().withMessage("Password do not matches"), */
-], async (req, res) => {
+router.post("/register", async (req, res) => {
     const newUser = new User({
         username: req.body.username,
         email: req.body.email,
@@ -18,22 +12,35 @@ router.post("/register", [
             req.body.password, process.env.PASS_SEC
         ).toString(),
     });
-    const errors = validationResult(req)
-    if (errors) {
-        res.render('register', {
-            errors: errors
-        })
-    } else {
+  
+    
         try {
             const savedUser = await newUser.save();
             res.status(200).json(savedUser);
         } catch (err) {
             res.status(500).json(err)
         }
-    }
+    
 });
 /* LOGIN */
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
+    try {
+        /* check username available or not */
+        const user = await User.findOne({ username: req.body.username });
+        !user && res.status(401).json("Wrong Credentials");
+        const hashPassword = CryptoJS.AES.decrypt(
+            user.password,
+            process.env.PASS_SEC
+        );
+        /*  decrypt method CryptoJS.enc.Utf8 for specify caractere  like ! $ + - ( ) @ < > ,*/
+        const password = hashPassword.toString(CryptoJS.enc.Utf8);
+        password !== req.body.password &&
+            res.status(401).json("Worng Credentials");
+
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json(err)
+    }
 
 })
 module.exports = router
