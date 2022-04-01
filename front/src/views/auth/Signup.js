@@ -62,7 +62,7 @@ else{console.log("error")}
     if (reg.test(val) === false) {
       setData({
         ...data,
-        username: val,
+        email: val,
         check_emailInputChange: false,
       });
     } else {
