@@ -86,13 +86,13 @@ const Signin = ({navigation}) => {
     }
 
     const loginHandle = () => {
-axios.post("http://192.168.1.61:5000/api/auth/login",{username:data.username,password:data.password}).then((res)=>navigation.navigate("home")).catch((err)=>alert('wrong info'))
+axios.post("http://192.168.43.100:5000/api/auth/login",{username:data.username,password:data.password}).then((res)=>navigation.navigate("home")).catch((err)=>alert('wrong info'))
        
     }
 
     return (
       <View style={styles.container}>
-          <StatusBar backgroundColor='#009387' barStyle="light-content"/>
+          <StatusBar backgroundColor='#fc8783' barStyle="light-content"/>
         <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
         </View>
@@ -186,7 +186,7 @@ axios.post("http://192.168.1.61:5000/api/auth/login",{username:data.username,pas
             
 
             <TouchableOpacity>
-                <Text style={{color: '#009387', marginTop:15}}>Forgot password?</Text>
+                <Text style={{color: '#fc8783', marginTop:15}}>Forgot password?</Text>
             </TouchableOpacity>
             <View style={styles.button}>
                 <TouchableOpacity
@@ -194,8 +194,8 @@ axios.post("http://192.168.1.61:5000/api/auth/login",{username:data.username,pas
                     onPress={() => {loginHandle()}}
                 >
                 <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
-                    style={styles.signIn}
+                colors={["#f3607b", "#fc8783"]}
+                style={styles.signIn}
                 >
                     <Text style={[styles.textSign, {
                         color:'#fff'
@@ -206,13 +206,13 @@ axios.post("http://192.168.1.61:5000/api/auth/login",{username:data.username,pas
                 <TouchableOpacity
                     onPress={() => navigation.navigate('SignUpScreen')}
                     style={[styles.signIn, {
-                        borderColor: '#009387',
+                        borderColor: '#fc8783',
                         borderWidth: 1,
                         marginTop: 15
                     }]}
                 >
                     <Text style={[styles.textSign, {
-                        color: '#009387'
+                        color: '#fc8783'
                     }]}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
@@ -225,7 +225,7 @@ export default Signin
 const styles = StyleSheet.create({
     container: {
       flex: 1, 
-      backgroundColor: '#009387'
+      backgroundColor: '#fc8783'
     },
     header: {
         flex: 1,
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     text_footer: {
-        color: '#05375a',
+        color: '#f3607b',
         fontSize: 18
     },
     action: {
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingLeft: 10,
-        color: '#05375a',
+        color: '#f3607b',
     },
     errorMsg: {
         color: '#FF0000',

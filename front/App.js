@@ -17,10 +17,11 @@ export default function App() {
     <NavigationContainer>
 
     <Stack.Navigator>
+    <Stack.Screen name="introslide" options={{ headerShown: false }}  component={IntroSlider} />
+
     <Stack.Screen options={{headerShown: false}}  name="signup" component={Signup} />
     <Stack.Screen name="signin" component={Signin} options={{headerShown: false}}  />
     <Stack.Screen name="home" component={HomeScreen} options={{headerShown: false}}  />
-    <Stack.Screen name="introslide" options={{ headerShown: false }}  component={IntroSlider} />
 
   </Stack.Navigator>
   </NavigationContainer>

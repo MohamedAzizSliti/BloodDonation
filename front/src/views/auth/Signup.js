@@ -32,9 +32,9 @@ const Signup = ({ navigation }) => {
 
   const Signupfunction = () => {
       if(data.check_emailInputChange==true&&data.check_textInputChange==true&&passwordmatch==true){
-axios.post("http://192.168.1.61:5000/api/auth/register",{email:data.email,password:data.password,username:data.username}).then((res)=>{
+axios.post("http://192.168.43.100:5000/api/auth/register",{email:data.email,password:data.password,username:data.username}).then((res)=>{
 if(res.status==200){
-    console.log("all good")
+    navigation.navigate("signin")
 }
 else{console.log("error")}
 }
@@ -115,7 +115,7 @@ else{console.log("error")}
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      <StatusBar backgroundColor="#fc8783" barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Register Now!</Text>
       </View>
@@ -124,7 +124,7 @@ else{console.log("error")}
         <ScrollView>
           <Text style={styles.text_footer}>Username</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
+            <FontAwesome name="user-o" color="#f3607b" size={20} />
             <TextInput
               placeholder="Your Username"
               style={styles.textInput}
@@ -140,7 +140,7 @@ else{console.log("error")}
 
           <Text style={[styles.text_footer, { marginTop: 35 }]}>Email</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
+            <FontAwesome name="user-o" color="#f3607b" size={20} />
             <TextInput
               placeholder="Your Email"
               style={styles.textInput}
@@ -165,7 +165,7 @@ else{console.log("error")}
             Password
           </Text>
           <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
+            <Feather name="lock" color="#f3607b" size={20} />
             <TextInput
               placeholder="Your Password"
               secureTextEntry={data.secureTextEntry ? true : false}
@@ -197,7 +197,7 @@ else{console.log("error")}
             Confirm Password
           </Text>
           <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
+            <Feather name="lock" color="#f3607b" size={20} />
             <TextInput
               placeholder="Confirm Your Password"
               secureTextEntry={data.confirm_secureTextEntry ? true : false}
@@ -235,7 +235,7 @@ else{console.log("error")}
               }}
             >
               <LinearGradient
-                colors={["#08d4c4", "#01ab9d"]}
+                colors={["#f3607b", "#fc8783"]}
                 style={styles.signIn}
               >
                 <Text
@@ -262,7 +262,7 @@ else{console.log("error")}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#009387",
+    backgroundColor: "#fc8783",
   },
   header: {
     flex: 1,
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   text_footer: {
-    color: "#05375a",
+    color: "#f3607b",
     fontSize: 18,
   },
   action: {
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS === "ios" ? 0 : -12,
     paddingLeft: 10,
-    color: "#05375a",
+    color: "#f3607b",
   },
   button: {
     alignItems: "center",

@@ -1,6 +1,7 @@
 import { StatusBar, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Swiper from 'react-native-swiper'
+import { LinearGradient } from 'expo-linear-gradient'
 
 
 const IntroSlider = ({ navigation, route }) => {
@@ -43,7 +44,30 @@ const IntroSlider = ({ navigation, route }) => {
             <Text style={styles.text1} >Find Blood Donor</Text>
 
             <Text style={styles.text2} >Calling hundreds of Donor is no more required using our platform </Text>
-          </View>
+            <View style={styles.button}>
+            <TouchableOpacity
+              style={styles.signIn}
+              onPress={() => {
+navigation.navigate("signup")              }}
+            >
+              <LinearGradient
+                colors={["#f3607b", "#fc8783"]}
+                style={styles.signIn}
+              >
+                <Text
+                  style={[
+                    styles.textSign,
+                    {
+                      color: "#fff",
+                    },
+                  ]}
+                >
+                  Sign Up
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
+          </View></View>
 
         </View>
       </Swiper>
@@ -64,7 +88,21 @@ const styles = StyleSheet.create({
 
   },
 
-  
+  button: {
+    alignItems: "center",
+    marginTop: 50,
+  },
+  signIn: {
+    width: "80%",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  textSign: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
 
   slide1: {
     flex: 2,
