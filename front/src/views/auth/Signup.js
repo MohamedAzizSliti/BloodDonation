@@ -32,7 +32,7 @@ const Signup = ({ navigation }) => {
 
   const Signupfunction = () => {
       if(data.check_emailInputChange==true&&data.check_textInputChange==true&&passwordmatch==true){
-axios.post("http://192.168.43.100:5000/api/auth/register",{email:data.email,password:data.password,username:data.username}).then((res)=>{
+axios.post("http://192.168.1.61:5000/api/auth/register",{email:data.email,password:data.password,username:data.username}).then((res)=>{
 if(res.status==200){
     navigation.navigate("signin")
 }

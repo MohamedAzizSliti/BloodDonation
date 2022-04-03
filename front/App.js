@@ -1,36 +1,157 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from "expo-status-bar";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Signup from './src/views/auth/Signup';
-import Signin from './src/views/auth/Signin';
-import { useState } from 'react';
-import HomeScreen from './src/views/HomeScreen';
-import IntroSlider from './src/views/IntroSlide';
+import Signup from "./src/views/auth/Signup";
+import Signin from "./src/views/auth/Signin";
+import { useEffect, useState } from "react";
+import HomeScreen from "./src/views/HomeScreen";
+import IntroSlider from "./src/views/IntroSlide";
+import { getUserData } from "./src/utils/AsyncStorageFunctions";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Donate from "./src/views/tabs/Donate";
+import Notifications from "./src/views/tabs/Notifications";
+import Profile from "./src/views/tabs/Profile";
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-  return (
-    <NavigationContainer>
+  const [user, setUser] = useState("");
 
-    <Stack.Navigator>
-    <Stack.Screen name="introslide" options={{ headerShown: false }}  component={IntroSlider} />
+  useEffect(async () => {
+    setUser(await getUserData());
+  }, []);
 
-    <Stack.Screen options={{headerShown: false}}  name="signup" component={Signup} />
-    <Stack.Screen name="signin" component={Signin} options={{headerShown: false}}  />
-    <Stack.Screen name="home" component={HomeScreen} options={{headerShown: false}}  />
+  function MyTabs() {
+    return (
+      <Tab.Navigator>
+        <Tab.Screen
+          options={{
+            tabBarLabel: ({focused}) => (
+              <Text style={{color: focused ? '#f3607b' : 'black',opacity:0.8}}>Home</Text>
+            ),            tabBarOptions: {
+              showIcon: true,
+            },
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  style={{ width: 30, height: 30,opacity:0.9 }}
+                  source={focused?require('./src/images/homefocused.png'):require('./src/images/home.png')}
+                />
+              );
+            },
+          }}
+          name="home"
+          component={HomeScreen}
+        />
+        <Tab.Screen
+          options={{
+            tabBarLabel: ({focused}) => (
+              <Text style={{color: focused ? '#f3607b' : 'black',opacity:0.8}}>Donate</Text>
+            ),
+            tabBarOptions: {
+              showIcon: true,
+            },
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  style={{ width: 30, height: 30,opacity:0.9 }}
+                  source={focused?require('./src/images/heartfocused.png'):require('./src/images/heart.png')}
 
-  </Stack.Navigator>
-  </NavigationContainer>
-  );
+                />
+              );
+            },
+          }}
+          name="donate"
+          component={Donate}
+        />
+        <Tab.Screen
+          options={{
+            tabBarLabel: ({focused}) => (
+              <Text style={{color: focused ? '#f3607b' : 'black',opacity:0.8}}>Notifications</Text>
+            ),
+            tabBarOptions: {
+              showIcon: true,
+            },
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  style={{ width: 30, height: 30,opacity:0.9 }}
+                  source={focused?require('./src/images/bellfocused.png'):require('./src/images/bell.png')}
+
+                />
+              );
+            },
+          }}
+          name="notification"
+          component={Notifications}
+        />
+        <Tab.Screen
+          options={{
+            tabBarLabel: ({focused}) => (
+              <Text style={{color: focused ? '#f3607b' : 'black',opacity:0.8}}>Profile</Text>
+            ),            tabBarOptions: {
+              showIcon: true,
+            },
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Image
+                  style={{ width: 30, height: 30,opacity:0.9 }}
+                  source={focused?require('./src/images/userfocused.png'):require('./src/images/user.png')}
+
+                />
+              );
+            },
+          }}
+          name="profile"
+          component={Profile}
+        />
+      </Tab.Navigator>
+    );
+  }
+
+  if (user === "") {
+    return (
+      <View>
+        <Text>Loading</Text>
+      </View>
+    );
+  } else {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={user == null ? "signin" : "tabs"}>
+          <Stack.Screen
+            name="introslide"
+            options={{ headerShown: false }}
+            component={IntroSlider}
+          />
+
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="signup"
+            component={Signup}
+          />
+          <Stack.Screen
+            name="signin"
+            component={Signin}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="tabs"
+            component={MyTabs}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
-  
-  alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
