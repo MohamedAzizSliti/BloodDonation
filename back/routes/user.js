@@ -2,6 +2,8 @@ const User = require("../models/User");
 const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
 
 const router = require("express").Router();
+
+
 /* update USER */
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     if (req.body.password) {
@@ -42,7 +44,8 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
         res.status(500).json(err);
     }
 });
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
+
+router.get("/", async (req, res) => {
     try {
         const users = await User.find()
         res.status(200).json(users);
