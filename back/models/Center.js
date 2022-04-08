@@ -7,7 +7,6 @@ const CenterSchema = new mongoose.Schema(
 
      
     },
-    { timestamps: true },
     
 )
 module.exports = mongoose.model("Center", CenterSchema);
