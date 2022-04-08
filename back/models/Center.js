@@ -5,8 +5,9 @@ const CenterSchema = new mongoose.Schema(
         longitude: { type: Number, required: true, unique: true },
         latitude: { type: Number, required: true, unique: true },
 
-
+     
     },
     { timestamps: true },
+    
 )
 module.exports = mongoose.model("Center", CenterSchema);

@@ -1,14 +1,32 @@
 const Center = require("../models/Center");
+const User = require("../models/User");
 const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
 
 const router = require("express").Router();
+// Implementing $lookup for customers collection
+Center.aggregate([
+    {
+      $lookup: {
+        from: "user",
+        localField: "_id",
+        foreignField: "_id",
+        as: "user_id",
+      },
+    },
+    // Deconstructs the array field from the
+    // input document to output a document
+    // for each element
+    {
+      $unwind: "$user_id",
+    },
+  ])
 /* add Center */
-router.post("/add", async (req, res) => {
+router.post("/add/:user_id", async (req, res) => {
     const newCenter = new Center({
         name: req.body.name,
         longitude: req.body.longitude,
         latitude: req.body.latitude,
-
+        user_id:req.params.id
   
     });
     try {

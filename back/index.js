@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoute = require("./routes/user")
 const authRoute = require("./routes/auth")
-const centerRoute = require("./routes/center")
+const centerRoute = require("./routes/centerRoutes")
 
 dotenv.config();
 /* Connect To DB */
