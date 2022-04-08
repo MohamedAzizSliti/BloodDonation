@@ -1,11 +1,10 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
-    </View>
+    <View >
+<Text>Home scren heee</Text></View>
   )
 }
 

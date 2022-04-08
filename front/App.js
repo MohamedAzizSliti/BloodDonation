@@ -26,7 +26,7 @@ export default function App() {
 
   function MyTabs() {
     return (
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{ headerShown: false }} >
         <Tab.Screen
           options={{
             tabBarLabel: ({focused}) => (
@@ -121,7 +121,7 @@ export default function App() {
   } else {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={user == null ? "signin" : "tabs"}>
+        <Stack.Navigator initialRouteName={user == null ? "introslide" : "tabs"}>
           <Stack.Screen
             name="introslide"
             options={{ headerShown: false }}

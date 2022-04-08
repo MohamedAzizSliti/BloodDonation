@@ -89,7 +89,7 @@ const Signin = ({ navigation }) => {
  
   const loginHandle =  () => {
     axios
-      .post("http://192.168.1.61:5000/api/auth/login", {
+      .post("http://172.16.17.59:5000/api/auth/login", {
         username: data.username,
         password: data.password,
       })
@@ -229,7 +229,7 @@ const Signin = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("SignUpScreen")}
+            onPress={() => navigation.navigate("signup")}
             style={[
               styles.signIn,
               {
