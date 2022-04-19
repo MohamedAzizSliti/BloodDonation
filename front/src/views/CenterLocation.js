@@ -9,6 +9,11 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import BDC from "../../assets/blood-drop.png"
+import Donor from "../../assets/donor.png"
+
+import axios from "axios";
+
+import Loading from "../components/Loading";
 const CenterLocation = () => {
   const [location, setLocation] = useState(null);
   const [center, setCenters] = useState(null);
@@ -30,22 +35,23 @@ const CenterLocation = () => {
     })();
   }
   let interval;
-  function getAllBDC(){
+   function getAllBDC(){
 
     axios
      .get(
-       `http://192.168.1.18:5000/api/center`
+       `http://192.168.48.99:5000/api/center`
      ).then(res=> {
      setCenters(res.data)
- 
+ console.log(res.data)
  
  
    }
    )}
 
-  useEffect(() => {
-  
+  useEffect( () => {
        interval = setInterval(() => {
+        getAllBDC()
+
         getlocation();
         console.log("seconds 10");
       }, 10000);
@@ -67,11 +73,12 @@ const CenterLocation = () => {
   }
   if (location == null) {
     return (
-      <View>
-        <Text>Loading</Text>
+      <View style={styles.container}>
+
+        <Loading />
       </View>
     );
-  } else {
+  } 
     return (
       <View style={styles.container}>
         <MapView
@@ -82,6 +89,7 @@ const CenterLocation = () => {
             latitudeDelta: 0.004,
             longitudeDelta: 0.005,
           }}
+
         >
           
           <Marker
@@ -91,8 +99,13 @@ const CenterLocation = () => {
             }}
             title={"title"}
             description={"marker.description"}
-          />
-          { center.map((el) =>  <Marker
+          >                          
+          <Image source={Donor} style={{ height: 32, width: 32 }} />
+          </Marker>
+          {center!=null? center.map((el) =>  
+          (
+          <Marker
+          key={el._id}
             coordinate={{
               latitude: el.latitude,
               longitude: el.longitude,
@@ -100,18 +113,19 @@ const CenterLocation = () => {
             title={el.name}
             description={"Blood Donation Center"}
           >
-                          <Image source={BDC} style={{ height: 32, width: 32 }} />
+                          <Image source={BDC} style={{ height: 40, width: 40 }} />
 
-          </Marker>)}
+          </Marker>
+          )):null}
         </MapView>
       </View>
     );
-  }
+  
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+
     alignItems: "center",
     justifyContent: "center",
   },
