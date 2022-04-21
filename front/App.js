@@ -37,7 +37,7 @@ export default function App() {
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  style={{ width: 30, height: 30,opacity:0.9 }}
+                  style={{ width: 25, height: 25,opacity:0.9 }}
                   source={focused?require('./src/images/homefocused.png'):require('./src/images/home.png')}
                 />
               );
@@ -57,7 +57,7 @@ export default function App() {
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  style={{ width: 30, height: 30,opacity:0.9 }}
+                  style={{ width: 25, height: 25,opacity:0.9 }}
                   source={focused?require('./src/images/heartfocused.png'):require('./src/images/heart.png')}
 
                 />
@@ -78,7 +78,7 @@ export default function App() {
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  style={{ width: 30, height: 30,opacity:0.9 }}
+                  style={{ width: 25, height: 25,opacity:0.9 }}
                   source={focused?require('./src/images/bellfocused.png'):require('./src/images/bell.png')}
 
                 />
@@ -98,7 +98,7 @@ export default function App() {
             tabBarIcon: ({ focused }) => {
               return (
                 <Image
-                  style={{ width: 30, height: 30,opacity:0.9 }}
+                  style={{ width: 25, height: 25,opacity:0.9 }}
                   source={focused?require('./src/images/userfocused.png'):require('./src/images/user.png')}
 
                 />

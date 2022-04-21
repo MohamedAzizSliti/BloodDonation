@@ -89,7 +89,7 @@ const Signin = ({ navigation }) => {
  
   const loginHandle =  () => {
     axios
-      .post("http://172.16.17.59:5000/api/auth/login", {
+      .post("http://192.168.43.100:5000/api/auth/login", {
         username: data.username,
         password: data.password,
       })
