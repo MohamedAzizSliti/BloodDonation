@@ -39,7 +39,7 @@ const CenterLocation = () => {
 
     axios
      .get(
-       `http://192.168.48.99:5000/api/center`
+       `http://192.168.1.45:5000/api/center`
      ).then(res=> {
      setCenters(res.data)
  console.log(res.data)
