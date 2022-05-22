@@ -63,7 +63,7 @@ const RequestBlood = ({ route, navigation }) => {
     >
       <Image
         resizeMode="contain"
-        style={{ aspectRatio: 0.6, flex: 1 }}
+        style={{ height:40,width:25,marginLeft:10 }}
         source={{
           uri: "https://i.ibb.co/3T9Ws4D/Nice-Png-location-sign-png-4318534.png",
         }}

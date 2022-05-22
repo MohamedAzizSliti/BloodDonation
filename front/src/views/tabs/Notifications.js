@@ -4,6 +4,7 @@ import {
   Linking,
   View,
   TouchableOpacity,
+  StatusBar,
   Image,
   Alert,
   ScrollView,
@@ -80,6 +81,8 @@ const Notifications = () => {
   ]);
   return (
     <View>
+            <StatusBar backgroundColor={"#f3607b"} barStyle="auto" />
+
       <ScrollView>
       {data.map((el) => (
         <TouchableOpacity

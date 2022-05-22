@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity,StatusBar } from "react-native";
 import React, { useState } from "react";
 
 const Donate = ({navigation}) => {
@@ -12,6 +12,8 @@ const Donate = ({navigation}) => {
         justifyContent: "center",
       }}
     >
+            <StatusBar backgroundColor={"#f3607b"} barStyle="auto" />
+
       <Text
         style={{ fontSize: 18, fontWeight: "normal", opacity: 0.8, margin: 15 }}
       >

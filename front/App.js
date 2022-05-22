@@ -9,12 +9,12 @@ import { useEffect, useState } from "react";
 import HomeScreen from "./src/views/HomeScreen";
 import IntroSlider from "./src/views/IntroSlide";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Donate from "./src/views/tabs/Donate";
 import Notifications from "./src/views/tabs/Notifications";
 import Profile from "./src/views/tabs/Profile";
 import CenterLocation from './src/views/CenterLocation';
-import { getUserData } from "./src/utils/AsyncStorageFunctions";
 import RequestBlood from "./src/views/RequestBlood";
+import { getUserData } from "./src/utils/AsyncStorageFunctions";
+import Donate from "./src/views/tabs/Donate";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,6 +43,7 @@ export default function App() {
   function MyTabs() {
     return (
       <Tab.Navigator screenOptions={{ headerShown: false }} >
+        
         <Tab.Screen
           options={{
             tabBarLabel: ({focused}) => (
