@@ -8,12 +8,13 @@ import Signin from "./src/views/auth/Signin";
 import { useEffect, useState } from "react";
 import HomeScreen from "./src/views/HomeScreen";
 import IntroSlider from "./src/views/IntroSlide";
-import { getUserData } from "./src/utils/AsyncStorageFunctions";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Donate from "./src/views/tabs/Donate";
 import Notifications from "./src/views/tabs/Notifications";
 import Profile from "./src/views/tabs/Profile";
 import CenterLocation from './src/views/CenterLocation';
+import { getUserData } from "./src/utils/AsyncStorageFunctions";
+import RequestBlood from "./src/views/RequestBlood";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,6 +26,19 @@ export default function App() {
     setUser(await getUserData());
   }, []);
 
+  function HomeStack(){
+    return <Stack.Navigator>
+                    <Stack.Screen name="location" options={{ headerShown: false }}  component={CenterLocation} />
+
+    </Stack.Navigator>
+  }
+  function DonateStack(){
+    return <Stack.Navigator>
+                    <Stack.Screen name="donateintab" options={{ headerShown: false }}  component={Donate} />
+                    <Stack.Screen name="requestblood" options={{ headerShown: false }}  component={RequestBlood} />
+
+    </Stack.Navigator>
+  }
 
   function MyTabs() {
     return (
@@ -46,7 +60,7 @@ export default function App() {
             },
           }}
           name="home"
-          component={HomeScreen}
+          component={HomeStack}
         />
         <Tab.Screen
           options={{
@@ -67,7 +81,7 @@ export default function App() {
             },
           }}
           name="donate"
-          component={Donate}
+          component={DonateStack}
         />
         <Tab.Screen
           options={{
@@ -129,7 +143,6 @@ export default function App() {
             options={{ headerShown: false }}
             component={IntroSlider}
           />
-              <Stack.Screen name="location" options={{ headerShown: false }}  component={CenterLocation} />
 
 
           <Stack.Screen

@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
 import * as Location from "expo-location";
-import BDC from "../../assets/blood-drop.png"
-import Donor from "../../assets/donor.png"
+import BDC from "../../assets/blood-drop.png";
+import Donor from "../../assets/donor.png";
 
 import axios from "axios";
 
@@ -19,8 +13,6 @@ const CenterLocation = () => {
   const [center, setCenters] = useState(null);
 
   const [errorMsg, setErrorMsg] = useState(null);
-
-  
 
   function getlocation(value) {
     (async () => {
@@ -34,34 +26,21 @@ const CenterLocation = () => {
       setLocation(location);
     })();
   }
-  let interval;
-   function getAllBDC(){
+  function getAllBDC() {
+    axios.get(`http://192.168.1.45:5000/api/center`).then((res) => {
+      setCenters(res.data);
+      console.log(res.data);
+    });
+  }
 
-    axios
-     .get(
-       `http://192.168.1.45:5000/api/center`
-     ).then(res=> {
-     setCenters(res.data)
- console.log(res.data)
- 
- 
-   }
-   )}
+  useEffect(() => {
+    getAllBDC();
 
-  useEffect( () => {
-       interval = setInterval(() => {
-        getAllBDC()
-
-        getlocation();
-        console.log("seconds 10");
-      }, 10000);
-
-
-   
+    getlocation();
+    console.log("seconds 10");
 
     return () => {
       console.log("Cleaning useEffect");
-      clearInterval(interval);
     };
   }, []);
 
@@ -74,53 +53,50 @@ const CenterLocation = () => {
   if (location == null) {
     return (
       <View style={styles.container}>
-
         <Loading />
       </View>
     );
-  } 
-    return (
-      <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
+  }
+  return (
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.004,
+          longitudeDelta: 0.005,
+        }}
+      >
+        <Marker
+          coordinate={{
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
-            latitudeDelta: 0.004,
-            longitudeDelta: 0.005,
           }}
-
+          title={"title"}
+          description={"marker.description"}
         >
-          
-          <Marker
-            coordinate={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-            }}
-            title={"title"}
-            description={"marker.description"}
-          >                          
           <Image source={Donor} style={{ height: 32, width: 32 }} />
-          </Marker>
-          {center!=null? center.map((el) =>  
-          (
-          <Marker
-          key={el._id}
-            coordinate={{
-              latitude: el.latitude,
-              longitude: el.longitude,
-            }}
-            title={el.name}
-            description={"Blood Donation Center"}
-          >
-                          <Image source={BDC} style={{ height: 40, width: 40 }} />
-
-          </Marker>
-          )):null}
-        </MapView>
-      </View>
-    );
-  
+        </Marker>
+        {center != null
+          ? center.map((el) => (
+              <Marker
+                key={el._id}
+                onPress={()=>console.log(el._id)}
+                coordinate={{
+                  latitude: el.latitude,
+                  longitude: el.longitude,
+                }}
+                title={el.name}
+                description={"Blood Donation Center"}
+              >
+                <Image source={BDC} style={{ height: 40, width: 40 }} />
+              </Marker>
+            ))
+          : null}
+      </MapView>
+    </View>
+  );
 };
 const styles = StyleSheet.create({
   container: {
