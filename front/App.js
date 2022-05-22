@@ -13,6 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Donate from "./src/views/tabs/Donate";
 import Notifications from "./src/views/tabs/Notifications";
 import Profile from "./src/views/tabs/Profile";
+import CenterLocation from './src/views/CenterLocation';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,6 +24,7 @@ export default function App() {
   useEffect(async () => {
     setUser(await getUserData());
   }, []);
+
 
   function MyTabs() {
     return (
@@ -127,6 +129,8 @@ export default function App() {
             options={{ headerShown: false }}
             component={IntroSlider}
           />
+              <Stack.Screen name="location" options={{ headerShown: false }}  component={CenterLocation} />
+
 
           <Stack.Screen
             options={{ headerShown: false }}

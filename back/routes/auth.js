@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User")
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+
 /* REGISTER */
 router.post("/register", async (req, res) => {
     const newUser = new User({
@@ -39,7 +40,7 @@ router.post("/login", async (req, res) => {
             process.env.JWT_SEC,
             { expiresIn: "3d" }
         );
-/* send clean res only information username email id... without password  */
+        /* send clean res only information username email id... without password  */
         const { password, ...others } = user._doc;
         res.status(200).json({ ...others, accessToken });
 
